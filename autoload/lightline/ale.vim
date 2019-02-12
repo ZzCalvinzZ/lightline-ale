@@ -40,8 +40,7 @@ function! lightline#ale#checking() abort
 endfunction
 
 function! lightline#ale#fixing() abort
-  let l:fixer = get(ale_fix_buffer_data, bufnr(''))
-  if fixer == 0
+  if get(g:ale_fix_buffer_data, bufnr(''), 0) == 0
     return ''
   endif
 
