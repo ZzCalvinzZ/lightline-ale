@@ -40,7 +40,12 @@ function! lightline#ale#checking() abort
 endfunction
 
 function! lightline#ale#fixing() abort
-  return get(g:ale_fix_buffer_data, bufnr('')) ? s:indicator_fixing : ''
+  let l:fixer = get(ale_fix_buffer_data, bufnr(''))
+  if fixer == 0
+    return ''
+  endif
+
+  return s:indicator_fixing
 endfunction
 
 
