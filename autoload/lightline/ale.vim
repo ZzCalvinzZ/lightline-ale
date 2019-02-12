@@ -40,11 +40,7 @@ function! lightline#ale#checking() abort
 endfunction
 
 function! lightline#ale#fixing() abort
-  if get(g:ale_fix_buffer_data, bufnr(''), 0) == 0
-    return ''
-  endif
-
-  return s:indicator_fixing
+  return lightline#ale#isFixingBuffer(bufnr('')) ? s:indicator_fixing : ''
 endfunction
 
 
@@ -55,4 +51,9 @@ function! lightline#ale#linted() abort
   return get(g:, 'ale_enabled', 0) == 1
     \ && getbufvar(bufnr(''), 'ale_linted', 0) > 0
     \ && ale#engine#IsCheckingBuffer(bufnr('')) == 0
+endfunction
+
+function! lightline#ale#isFixingBuffer(buffer) abort
+  let l:info = get(g:ale_fix_buffer_data, a:buffer, {})
+  return !empty(l:info)
 endfunction
